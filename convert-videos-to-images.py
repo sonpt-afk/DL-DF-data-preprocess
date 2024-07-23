@@ -1,12 +1,12 @@
 import cv2
 import glob
 
+    #  Goal: Trích xuất các frame từ nhiều video trong một thư mục, lưu các frame này thành các file ảnh riêng biệt
 def convert_videos_to_images():
-    # Đọc video từ folder dataset và lưu frame vào folder extracted-frames
-    # 6 giây thì lấy 1 frame
+    # Đặt tốc độ khung hình (frames per second) là 6
     fps = 6
 
-    # Tổng video có trong folder dataset
+    #tìm kiếm tất cả các file .mp4 trong thư mục và các thư mục con, sau đó lưu đường dẫn của chúng vào videonames_list
     folders = glob.glob('F:/Data_for_Deepfake_DL/Dataset-1/new-train/train/Real')
     videonames_list = []
 
@@ -25,8 +25,9 @@ def convert_videos_to_images():
         success = True
         while success:
             success, image = video.read()
-            name = 'F:/Data_for_Deepfake_DL/Extracted-frames/train-real' + str(count) + '.jpg'
+            name = 'F:/Data_for_Deepfake_DL/Extracted-frames/train-Real/' + str(count) + '.jpg'
             if success == True:
+                #Lưu frame thành file ảnh nếu số frame chia hết cho fps (để lấy 1 frame cho mỗi 6 frame)
                 if count % fps == 0:
                     cv2.imwrite(name, image)
                     print('Frame {} Extracted Successfully'.format(count))
